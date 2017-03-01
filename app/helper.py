@@ -9,7 +9,6 @@ def createConditionsURL(city, state):
 def createForecastURL(city, state):
 	api_key = '0a2e7496ef93abf1'
 	url = 'http://api.wunderground.com/api/' + api_key + "/forecast/q/" + state + '/' + city + '.json'
-	print (url)
 	return url
 
 def createData(url):

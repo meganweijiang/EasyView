@@ -22,13 +22,26 @@ def index():
 	degree_sign= u'\N{DEGREE SIGN}'
 	temperature = str(conditionsData['current_observation']['temp_f']) + str(degree_sign)
 	precipitation = str(forecastData['forecast']['txt_forecast']['forecastday'][0]['pop']) + '%'
-	print (precipitation)
+	weather = str(conditionsData['current_observation']['weather']).lower()
 
+	if today.strftime("%p") == 'PM':
+		greeting = 'Good Afternoon'
+	elif today.strftime("%p") == 'AM':
+		greeting = 'Good Morning'
+
+	if 'rain' in weather:
+		symbol = str(u'\u26C6')
+	elif 'cloud' in weather:
+		symbol = str(u'\u2601')
+	elif 'thunder' in weather:
+		symcol = str(u'\u26A1')
+	else:
+		symbol = str(u'\u2600')		
 
 	user = {'nickname': 'Megan'}
 	currentDate = today.strftime("%A %B %d, %Y")
 	currentTime = today.strftime("%I:%M %p")
-	return render_template('index.html', user=user, currentDate=currentDate, currentTime=currentTime, temperature=temperature, city=city, state=state, precipitation=precipitation)
+	return render_template('index.html', user=user, currentDate=currentDate, currentTime=currentTime, temperature=temperature, city=city, state=state, precipitation=precipitation, greeting=greeting, symbol=symbol)
 
 
 

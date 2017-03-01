@@ -1,8 +1,12 @@
+<!DOCTYPE html>
 <html>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" type="text/css" />
+	<header>
+		<p class="greeting">{{ greeting }}</p>
+	</header>
 	<head>
-		<title>{{ title }} - Hello!</title>
-		<center>
-		<h1>Hello, {{ user.nickname}}!</h1>
+		<title>EasyView</title>
+		<p class="hello">Hello, {{ user.nickname }}!</p>
 		<br>
 	</head>
 	<body>
@@ -11,7 +15,7 @@
 		<br>
 		<h2>The current temperature is {{ temperature }} in {{ city }}, {{ state }}</h2>
 		<h2>The chance of rain today is {{ precipitation }}</h2>
-		</center>
+		<p class="sym">{{ symbol }}</p>
 	</body>
 </html>
 
