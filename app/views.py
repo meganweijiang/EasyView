@@ -33,9 +33,11 @@ def index():
 
 	if 'rain' in weather:
 		symbol = str(u'\u26C6')
+	elif 'cloud' in weather and 'part' in weather:
+		symbol = str(u'\u26C5')
 	elif 'cloud' in weather:
 		symbol = str(u'\u2601')
-	elif 'thunder' in weather:
+	elif 'storm' in weather:
 		symcol = str(u'\u26A1')
 	else:
 		symbol = str(u'\u2600')		
