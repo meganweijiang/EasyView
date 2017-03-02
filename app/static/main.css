@@ -2,10 +2,10 @@ p.greeting {
 	text-align: left;
 	color: #FFF;
 	opacity: 0.9;
-	background-color: #2B2B2B;
+	background-color: #5b5b5b;
 	height: 30px;
 	width: 100%;
-	font-size: 30px;
+	font-size: 32px;
 	margin-bottom: 100px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-style: italic;
@@ -24,7 +24,7 @@ body {
 	text-align: center;
 	padding: 0;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	color: #444;
+	color: #5b5b5b;
 }
 
 p.sym {

@@ -24,10 +24,12 @@ def index():
 	precipitation = str(forecastData['forecast']['txt_forecast']['forecastday'][0]['pop']) + '%'
 	weather = str(conditionsData['current_observation']['weather']).lower()
 
-	if today.strftime("%p") == 'PM':
-		greeting = 'Good Afternoon'
-	elif today.strftime("%p") == 'AM':
+	if int(today.strftime("%H")) >= 19 and int(today.strftime("%H")) < 4:
+		greeting = 'Good Night'
+	elif int(today.strftime("%H")) >= 4 and int(today.strftime("%H")) <= 12:
 		greeting = 'Good Morning'
+	else:
+		greeting = 'Good Afternoon'
 
 	if 'rain' in weather:
 		symbol = str(u'\u26C6')
