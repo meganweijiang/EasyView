@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+   <head>
+      <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" type="text/css" />
+   </head>
+
+   <body>
+
+      <h3>EasyView</h3>
+
+      <br>
+      <br>
+      <br>
+
+      <h2>Enter Information</h2>
+
+      {% for message in form.name.errors %}
+      <div>{{ message }}</div>
+      {% endfor %}
+
+      {% for message in form.state.errors %}
+      <div>{{ message }}</div>
+      {% endfor %}
+
+      {% for message in form.city.errors %}
+      <div>{{ message }}</div>
+      {% endfor %}
+      
+      <form action = "http://localhost:5000/form" method = POST>
+         <fieldset>
+            <div class="form">
+               {{ form.name.label }}<br>
+               {{ form.name }}
+               <br>
+
+               {{ form.state.label }}<br>
+               {{ form.state }}
+               <br>
+               
+               {{ form.city.label }}<br>
+               {{ form.city }}
+               <br>
+
+               {{ form.submit }} {{ form.cancel }}
+            </div>
+            
+         </fieldset>
+      </form>
+      
+   </body>
+</html>

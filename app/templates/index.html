@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" type="text/css" />
-	<header>
-		<p class="greeting">{{ greeting }}</p>
-	</header>
 	<head>
-		<title>EasyView</title>
-		<p class="hello">Hello, {{ user.nickname }}!</p>
-		<br>
+    	<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" type="text/css" />
 	</head>
 	<body>
-		<h2>Today's date is {{ currentDate }}</h2>
-		<h2>The current time is {{ currentTime }}</h2>
-		<br>
-		<h2>The current temperature is {{ temperature }} in {{ city }}, {{ state }}</h2>
-		<h2>The chance of rain today is {{ precipitation }}</h2>
-		<p class="sym">{{ symbol }}</p>
+		<header>
+			<div>
+				<p class="greeting">{{ greeting }}<a href="/form" class="reset">Reset</a></p>
+				
+			</div>
+		</header>
+			<title>EasyView</title>
+			<p class="hello">Hello, {{ name }}!</p>
+			<br>
+			<h2>Today's date is {{ currentDate }}</h2>
+			<h2>The current time is {{ currentTime }}</h2>
+			<br>
+			<h2>The current temperature is {{ temperature }} in {{ city }}, {{ state }}</h2>
+			<h2>The chance of rain today is {{ precipitation }}</h2>
+			<p class="sym">{{ symbol }}</p>
 	</body>
 </html>
 

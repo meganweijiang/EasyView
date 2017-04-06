@@ -32,3 +32,24 @@ p.sym {
 	margin-top: 0px;
 	font-size: 150px;
 }
+
+a.reset {
+	float: right;
+	text-decoration: none;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: white;
+	font-size: 24px;
+}
+
+a:hover {
+	color: #4398f2;
+}
+
+div.form {
+	font-size: 20px;
+}
+
+h3 {
+	float: right;
+	margin-right: 20px;
+}

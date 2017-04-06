@@ -1,16 +1,34 @@
-from flask import render_template
+from flask import Flask, render_template, request, redirect, url_for, flash
 from app import app
 import urllib.request
 import json
 import datetime
 from .helper import *
+from flask_wtf import Form
+from wtforms import TextField, SubmitField, validators, ValidationError
 
-@app.route('/')
-@app.route('/index')
+app.secret_key = 'development key'
+dataDict = {'name': None, 'state': None, 'city': None}
 
-def index():
-	city = 'Austin'
-	state = 'TX'
+
+class InfoForm(Form):
+	name = TextField("Name: ", [validators.required()])
+	state = TextField("State or Country: ", [validators.required(), validators.length(max=2)])
+	city = TextField("City: ", [validators.required()])
+	submit = SubmitField("Submit")
+	cancel = SubmitField("Cancel")
+
+@app.route('/', methods=['POST', 'GET'])
+
+def index(*form):
+
+	name = dataDict['name']
+	state = dataDict['state']
+	city = dataDict['city']
+
+	if name == None:
+		return redirect(url_for('form'))
+
 	today = datetime.datetime.now()
 
 	conditionsURL = createConditionsURL(city, state)
@@ -20,9 +38,14 @@ def index():
 	forecastData = createData(forecastURL)
 
 	degree_sign= u'\N{DEGREE SIGN}'
-	temperature = str(conditionsData['current_observation']['temp_f']) + str(degree_sign)
-	precipitation = str(forecastData['forecast']['txt_forecast']['forecastday'][0]['pop']) + '%'
-	weather = str(conditionsData['current_observation']['weather']).lower()
+	try:
+		temperature = str(conditionsData['current_observation']['temp_f']) + str(degree_sign)
+		precipitation = str(forecastData['forecast']['txt_forecast']['forecastday'][0]['pop']) + '%'
+		weather = str(conditionsData['current_observation']['weather']).lower()
+	except KeyError:
+		temperature = ''
+		precipitation = ''
+		weather = ''
 
 	if int(today.strftime("%H")) >= 19 and int(today.strftime("%H")) < 4:
 		greeting = 'Good Night'
@@ -42,11 +65,24 @@ def index():
 	else:
 		symbol = str(u'\u2600')		
 
-	user = {'nickname': 'Megan'}
 	currentDate = today.strftime("%A %B %d, %Y")
 	currentTime = today.strftime("%I:%M %p")
-	return render_template('index.html', user=user, currentDate=currentDate, currentTime=currentTime, temperature=temperature, city=city, state=state, precipitation=precipitation, greeting=greeting, symbol=symbol)
+	return render_template('index.html', name=name, currentDate=currentDate, currentTime=currentTime, temperature=temperature, city=city, state=state, precipitation=precipitation, greeting=greeting, symbol=symbol)
 
+@app.route('/form', methods=['GET', 'POST'])
+def form():
+	form = InfoForm()
+	if request.method == 'POST':
+		if 'submit' in request.form:
+			dataDict['name'] = request.form['name']
+			dataDict['state'] = request.form['state']
+			dataDict['city'] = request.form['city']
+			return redirect(url_for('index'))
+
+		elif 'cancel' in request.form:
+			return redirect(url_for('index'))
+
+	return render_template('form.html', form=form)
 
 
 
