@@ -28,7 +28,7 @@ def index(*form):
 	city = dataDict['city']
 	cityQuery = city
 
-	if city != "" or name != "" or state != "":
+	if city != "" and name != "" and state != "":
 		city = string.capwords(city)
 		name = string.capwords(name)
 		state = state.upper()
