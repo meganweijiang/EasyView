@@ -14,31 +14,31 @@
 
       <h2>Enter Information</h2>
 
-      {% for message in form.name.errors %}
-      <div>{{ message }}</div>
-      {% endfor %}
-
-      {% for message in form.state.errors %}
-      <div>{{ message }}</div>
-      {% endfor %}
-
-      {% for message in form.city.errors %}
-      <div>{{ message }}</div>
-      {% endfor %}
-      
       <form action = "http://localhost:5000/form" method = POST>
          <fieldset>
             <div class="form">
                {{ form.name.label }}<br>
                {{ form.name }}
+
+               {% for message in form.name.errors %}
+               <div>{{ message }}</div>
+               {% endfor %}
                <br>
 
                {{ form.state.label }}<br>
                {{ form.state }}
+
+               {% for message in form.state.errors %}
+               <div>{{ message }}</div>
+               {% endfor %}
                <br>
                
                {{ form.city.label }}<br>
                {{ form.city }}
+               {% for message in form.city.errors %}
+               <div>{{ message }}</div>
+               {% endfor %}
+      
                <br>
 
                {{ form.submit }} {{ form.cancel }}

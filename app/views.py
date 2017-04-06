@@ -3,12 +3,13 @@ from app import app
 import urllib.request
 import json
 import datetime
+import string
 from .helper import *
 from flask_wtf import Form
 from wtforms import TextField, SubmitField, validators, ValidationError
 
 app.secret_key = 'development key'
-dataDict = {'name': None, 'state': None, 'city': None}
+dataDict = {'name': "", 'state': "", 'city': ""}
 
 
 class InfoForm(Form):
@@ -25,16 +26,23 @@ def index(*form):
 	name = dataDict['name']
 	state = dataDict['state']
 	city = dataDict['city']
+	cityQuery = city
 
-	if name == None:
+	if city != "" and name != "" and state != "":
+		city = string.capwords(city)
+		name = string.capwords(name)
+		state = state.upper()
+		cityQuery = city.replace(" ", "_")
+
+	else:
 		return redirect(url_for('form'))
 
 	today = datetime.datetime.now()
 
-	conditionsURL = createConditionsURL(city, state)
+	conditionsURL = createConditionsURL(cityQuery, state)
 	conditionsData = createData(conditionsURL)
 
-	forecastURL = createForecastURL(city, state)
+	forecastURL = createForecastURL(cityQuery, state)
 	forecastData = createData(forecastURL)
 
 	degree_sign= u'\N{DEGREE SIGN}'
@@ -77,7 +85,7 @@ def form():
 			dataDict['name'] = request.form['name']
 			dataDict['state'] = request.form['state']
 			dataDict['city'] = request.form['city']
-			return redirect(url_for('index'))
+			return redirect(url_for('index'))	
 
 		elif 'cancel' in request.form:
 			return redirect(url_for('index'))
